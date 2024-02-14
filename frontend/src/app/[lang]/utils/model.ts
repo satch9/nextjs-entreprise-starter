@@ -1,6 +1,6 @@
 type StrapiResponse<T> = {
-  data: T;
-  message: string;
+	data: T;
+	message: string;
 };
 
 export interface Attribute {
@@ -68,4 +68,60 @@ export interface Meta {
 export interface RootObject {
 	data: Data[];
 	meta: Meta;
+}
+export interface PublicHolidays {
+	name: string;
+	datePublicHolydays: Date;
+}
+
+export interface IMoisAvecJours {
+	[key: string]: Array<Array<string | null>>;
+}
+
+export interface IEphemeride {
+	Janvier: [
+		[string, string]
+	];
+	Février: [
+		[string, string]
+	];
+	Mars: [
+		[string, string]
+	];
+	Avril: [
+		[string, string]
+	];
+	Mai: [
+		[string, string]
+	];
+	Juin: [
+		[string, string]
+	];
+	Juillet: [
+		[string, string]
+	];
+	Août: [
+		[string, string]
+	];
+	Septembre: [
+		[string, string]
+	];
+	Octobre: [
+		[string, string]
+	];
+	Novembre: [
+		[string, string]
+	];
+	Décembre: [
+		[string, string]
+	];
+}
+
+export interface CalendarProps {
+	data: {
+		id: string;
+		startDate: string;
+		endDate: string;
+		guests: number;
+	}[];
 }

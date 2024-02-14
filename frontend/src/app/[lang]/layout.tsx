@@ -13,7 +13,7 @@ import { FALLBACK_SEO } from "@/app/[lang]/utils/constants";
 async function getGlobal(lang: string): Promise<any> {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
 
-  if (!token) throw new Error("The Strapi API Token environment variable is not set.");
+  if (!token) throw new Error("La variable d'environnement Strapi API Token n'est pas définie.");
 
   const path = `/global`;
   const options = { headers: { Authorization: `Bearer ${token}` } };
@@ -60,6 +60,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { lang: string };
 }>) {
+  //console.log("params.lang", params.lang);
   const global = await getGlobal(params.lang);
   // TODO: CREATE A CUSTOM ERROR PAGE
   if (!global.data) return null;
@@ -67,11 +68,11 @@ export default async function RootLayout({
   const { notificationBanner, navbar, footer } = global.data.attributes;
 
   const navbarLogoUrl = getStrapiMedia(
-    navbar.navbarLogo.logoImg.data.attributes.url
+    navbar.navbarLogo.logoImg.data?.attributes.url
   );
 
   const footerLogoUrl = getStrapiMedia(
-    footer.footerLogo.logoImg.data.attributes.url
+    footer.footerLogo.logoImg.data?.attributes.url
   );
 
   return (

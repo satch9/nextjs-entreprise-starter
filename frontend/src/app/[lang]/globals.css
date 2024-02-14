@@ -134,3 +134,9 @@ body {
 .react-slideshow-container [aria-label="Next Slide"] {
   margin-right: 1rem;
 }
+/******************************************* 
+  Form Styles
+*******************************************/  
+.input{
+  @apply block w-full h-10 pl-3 pr-8 leading-tight bg-white border border-gray-400 rounded-md appearance-none 
+} 

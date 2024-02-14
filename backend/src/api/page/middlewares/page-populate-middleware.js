@@ -45,14 +45,14 @@ const populate = {
 module.exports = (config, { strapi }) => {
   // Add your own logic here.
   return async (ctx, next) => {
+    //console.log("ctx.query.locale", ctx.query.locale);
     ctx.query = {
       populate,
       filters: { slug: ctx.query.filters.slug },
       locale: ctx.query.locale,
     };
 
-    console.log("page-populate-middleware.js: ctx.query = ", ctx.query);
-
+    //console.log("page-populate-middleware.js: ctx.query = ", ctx.query);
     await next();
   };
 };

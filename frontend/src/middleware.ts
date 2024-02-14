@@ -15,34 +15,38 @@ function getLocale(request: NextRequest): string | undefined {
     let languages = new Negotiator({ headers: negotiatorHeaders }).languages();
     // @ts-ignore locales are readonly
     const locales: string[] = i18n.locales;
+    //console.log('languages', languages);
+    //console.log('locales', locales);
+    //console.log('i18n.defaultLocale', i18n.defaultLocale);
     return matchLocale(languages, locales, i18n.defaultLocale);
 }
 
 export function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
-
+    //console.log("pathname", pathname);
     // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
     // // If you have one
-    if (
-        [
-            '/manifest.json',
-            '/favicon.ico',
-            // Your other files in `public`
-        ].includes(pathname)
-    )
+    if (['/manifest.json', '/favicon.ico',].includes(pathname)) {
         return;
+    }
+
 
     // Check if there is any supported locale in the pathname
     const pathnameIsMissingLocale = i18n.locales.every(
         (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
     );
+    //console.log("i18n.locales", i18n.locales);
+
+    //console.log("pathnameIsMissingLocale", pathnameIsMissingLocale);
 
     // Redirect if there is no locale
     if (pathnameIsMissingLocale) {
         const locale = getLocale(request);
+        //console.log("locale = getLocale(request)", locale);
 
         // e.g. incoming request is /products
         // The new URL is now /en-US/products
+
         return NextResponse.redirect(new URL(`/${locale}/${pathname}`, request.url));
     }
 }

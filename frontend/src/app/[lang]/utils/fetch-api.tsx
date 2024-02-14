@@ -18,15 +18,15 @@ export async function fetchAPI(
 
     // Build request URL
     const queryString = qs.stringify(urlParamsObject);
-    const requestUrl = `${getStrapiURL(
-      `/api${path}${queryString ? `?${queryString}` : ""}`
-    )}`;
+    const queryParams = queryString ? `?${queryString}` : "";
+    const apiUrl = getStrapiURL(`/api${path}${queryParams}`);
+    const requestUrl = apiUrl;
 
     // Trigger API call
     const response = await fetch(requestUrl, mergedOptions);
     const data = await response.json();
     return data;
-    
+
   } catch (error) {
     console.error(error);
     throw new Error(`Please check if your server is running and you set all the required tokens.`);
